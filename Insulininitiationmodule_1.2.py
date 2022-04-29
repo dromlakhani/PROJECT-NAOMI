@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+#changelog
+	#9th Jan - Changed - added argument if FBS is lower 
 
 print("Welcome to PROJECT NAOMI: THE COMPLETE INSULIN MODULE FOR NON-PREGNANT, INSULIN NAIVE, ADULT PATIENTS with TYPE 2 DIABETES by Dr. Om J Lakhani version 1.2")
 
@@ -27,7 +29,7 @@ else:
 	#Module 1
 	print("Module 1 :Does your patient need insulin ?")
 	
-	if osmotic == 1 or pp2bs >=400:
+	if osmotic == "1" or pp2bs >=400:
 		next = input("\nYour patient needs insulin. Enter any key to continue\n")
 	elif hba1c >= 10:
 		next = input("\nYour patient needs insulin. Enter any key to continue\n")
@@ -51,7 +53,7 @@ else:
 	delta = pp2bs - fbs
 	
 	
-	if ratio > 25 or delta > 100:
+	if ratio < 20 or delta > 100:
 		if afford <= 3 :
 			next = input("\nIt is better to give this patient a premixed insulin. Looking at the affordability of the patient, a MIXTARD or HUMINSULIN 30/70 is a good choice. Press any key to go to the module for the starting dose insulin\n")
 		elif afford > 3 and afford <= 6:
@@ -75,10 +77,16 @@ else:
 	print("\nModule 3 : 'What dose of insulin should I start ?\n")
 	
 	insulin_type = input("\nEnter the name of the insulin that you have chosen to start:")
-	bid = round(((fbs-50))/10)
-	bid_s = str(bid)
-	output = "\nThe starting dose of %s suggested is: %s units. Press any key to continue:" %(insulin_type,bid_s)
-	next = input(output)
+	if fbs > 150:
+		bid = round(((fbs-50))/10)
+		bid_s = str(bid)
+		output = "\nThe starting dose of %s suggested is: %s units. Press any key to continue:" %(insulin_type,bid_s)
+		next = input(output)
+	else:
+		bid = 10
+		bid_s = str(bid)
+		output = "\nThe starting dose of %s suggested is: %s units. Press any key to continue:" %(insulin_type,bid_s)
+		next = input(output)
 	
 
 
